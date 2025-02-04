@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Chat</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #chat { max-height: 300px; overflow-y: scroll; margin-bottom: 10px; }
+    #message { width: 80%; padding: 10px; }
+    #send { padding: 10px 15px; }
+  </style>
+</head>
+<body>
+
+  <h2>WebSocket Chat</h2>
+
+  <div id="chat"></div>
+  <input type="text" id="message" placeholder="Type your message..." />
+  <button id="send">Send</button>
+
+  <script>
+    // Connect to WebSocket server
+    const socket = new WebSocket('ws://10.0.0.156:3000');
+
+    // Handle incoming messages
+    socket.onmessage = (event) => {
+      const chat = document.getElementById('chat');
+      const message = document.createElement('p');
+      message.textContent = event.data;
+      chat.appendChild(message);
+      chat.scrollTop = chat.scrollHeight; // Scroll to the bottom
+    };
+
+    // Handle connection open
+    socket.onopen = () => {
+      console.log('Connected to WebSocket server');
+    };
+
+    // Handle connection close
+    socket.onclose = () => {
+      console.log('Disconnected from WebSocket server');
+    };
+
+    // Send message when button is clicked
+    document.getElementById('send').onclick = () => {
+      const message = document.getElementById('message').value;
+      if (message) {
+        const chat = document.getElementById('chat');
+        const mymsg = document.createElement('p');
+        socket.send(message);
+        mymsg.textContent = `${message}`;
+        mymsg.style.color="red"
+        mymsg.style.textAlign="right"
+        mymsg.style.padding = "20px"
+
+        chat.appendChild(mymsg);
+        document.getElementById('message').value = ''; // Clear input field
+      }
+    };
+
+    // Optional: Allow sending by pressing Enter key
+    document.getElementById('message').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('send').click();
+      }
+    });
+  </script>
+
+</body>
+</html>
