@@ -35,7 +35,38 @@
 
 const WebSocket = require("ws");
 const os = require("os");
-const messages = [];
+const { stringify } = require("querystring");
+// const messages = [];
+const messages = [
+  {
+    text: "Hello! Anyone from Bataliyan 23 Srinagar",
+    user: "Cap. Tejas",
+    id: 1738914867454,
+    timestamp: 1738914867454,
+    profileImg: "../assets/profileImages/user.jpg",
+  },
+  {
+    text: "Well i got posted there in 2015",
+    user: "Gen. Parikshit",
+    id: 1738914867455,
+    timestamp: 1738914867455,
+    profileImg: "../assets/profileImages/user.jpg",
+  },
+  {
+    text: "⚠️ Your Flight 6E321 is delayed by 1 hour.",
+    user: "BOT",
+    id: 1738914867456,
+    timestamp: 1738914867456,
+    profileImg: "../assets/profileImages/bot.jpg", // Bot image
+  },
+  {
+    text: "Looks Like we got lot of time😂",
+    user: "Gen. Parikshit",
+    id: 1738914867457,
+    timestamp: 1738914867457,
+    profileImg: "../assets/profileImages/user.jpg",
+  },
+];
 // Function to get the local IP address
 const getLocalIP = () => {
   const interfaces = os.networkInterfaces();
@@ -62,7 +93,22 @@ wss.on("connection", (ws) => {
   clients.add(ws);
 
   // Notify the new client
-  ws.send(Array.toString(messages));
+  const timestamp = Date.now();
+  const welcomeMessage = {
+    text: "Welcome to the SkyLink",
+    user: "BOT",
+    id: timestamp,
+    timestamp: timestamp,
+    profileImg: "../assets/profileImages/user.jpg",
+  };
+
+  if (messages.length) {
+    messages.forEach((msg) => {
+      const strMsg = JSON.stringify(msg);
+      ws.send(strMsg);
+    });
+  }
+  ws.send(JSON.stringify(welcomeMessage));
 
   // Handle incoming messages
   ws.on("message", (message) => {
