@@ -35,7 +35,7 @@
 
 const WebSocket = require("ws");
 const os = require("os");
-
+const messages = [];
 // Function to get the local IP address
 const getLocalIP = () => {
   const interfaces = os.networkInterfaces();
@@ -62,12 +62,15 @@ wss.on("connection", (ws) => {
   clients.add(ws);
 
   // Notify the new client
-  ws.send("Welcome to the chatroom!");
+  ws.send(Array.toString(messages));
 
   // Handle incoming messages
   ws.on("message", (message) => {
-    console.log(`Received: ${message}`);
-    console.log(message);
+    const received = JSON.parse(message);
+    console.log(`Received: ${received.text} By: ${received.user}`);
+    console.log(`${message}`);
+    messages.push(received);
+    console.log(messages);
 
     // Broadcast the message to all clients
     clients.forEach((client) => {
