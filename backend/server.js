@@ -1,42 +1,6 @@
-// const os = require("os");
-// const WebSocket = require("ws");
-// const express = require("express");
-
-// // Function to get local IP
-// const getLocalIP = () => {
-//   const interfaces = os.networkInterfaces();
-//   for (let iface in interfaces) {
-//     for (let config of interfaces[iface]) {
-//       if (config.family === "IPv4" && !config.internal) {
-//         return config.address;
-//       }
-//     }
-//   }
-//   return "127.0.0.1"; // Default fallback
-// };
-
-// const IP_ADDRESS = getLocalIP();
-// console.log(`Server running at: ws://${IP_ADDRESS}:3000`);
-
-// const app = express();
-// const server = app.listen(3000);
-// const wss = new WebSocket.Server({ server });
-
-// wss.on("connection", (ws) => {
-//   console.log("New client connected");
-
-//   ws.on("message", (message) => {
-//     console.log("Received:", message, ws.data);
-//     ws.send(`Echo: ${message} ${ws}`); // Send back the message
-//   });
-
-//   ws.on("close", () => console.log("Client disconnected"));
-// });
-
 const WebSocket = require("ws");
 const os = require("os");
 const { stringify } = require("querystring");
-// const messages = [];
 const messages = [
   {
     text: "Hello! Anyone from Bataliyan 23 Srinagar",
@@ -54,10 +18,10 @@ const messages = [
   },
   {
     text: "⚠️ Your Flight 6E321 is delayed by 1 hour.",
-    user: "BOT",
+    user: "SAARTHI",
     id: 1738914867456,
     timestamp: 1738914867456,
-    profileImg: "../assets/profileImages/bot.jpg", // Bot image
+    profileImg: "../assets/profileImages/bot.jpg", // SAARTHI image
   },
   {
     text: "Looks Like we got lot of time😂",
@@ -65,6 +29,13 @@ const messages = [
     id: 1738914867457,
     timestamp: 1738914867457,
     profileImg: "../assets/profileImages/user.jpg",
+  },
+  {
+    text: "This is your crew. Have a Safe journey and if need any help call us.",
+    user: "CREW",
+    id: 1738914867458,
+    timestamp: 1738914867458,
+    profileImg: "../assets/profileImages/crew.jpg",
   },
 ];
 // Function to get the local IP address
@@ -96,10 +67,10 @@ wss.on("connection", (ws) => {
   const timestamp = Date.now();
   const welcomeMessage = {
     text: "Welcome to the SkyLink",
-    user: "BOT",
+    user: "SAARTHI",
     id: timestamp,
     timestamp: timestamp,
-    profileImg: "../assets/profileImages/user.jpg",
+    profileImg: "../assets/profileImages/bot.jpg",
   };
 
   if (messages.length) {
