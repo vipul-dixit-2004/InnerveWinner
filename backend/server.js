@@ -1,41 +1,50 @@
 const WebSocket = require("ws");
 const os = require("os");
-const { stringify } = require("querystring");
 const messages = [
   {
+    id: 1738914867453,
     text: "Hello! Anyone from Bataliyan 23 Srinagar",
-    user: "Cap. Tejas",
-    id: 1738914867454,
-    timestamp: 1738914867454,
-    profileImg: "../assets/profileImages/user.jpg",
+    user: "rahul@gmail.com", // Firebase UID
+    nickname: "Rahul",
+    timestamp: 1738914867453,
+    synced: false,
+    source: "local",
   },
   {
-    text: "Well i got posted there in 2015",
-    user: "Gen. Parikshit",
     id: 1738914867455,
+    text: "Well i got posted there in 2015",
+    user: "parikshit@gmail.com", // Firebase UID
+    nickname: "Gen. Parikshit",
     timestamp: 1738914867455,
-    profileImg: "../assets/profileImages/user.jpg",
+    synced: false,
+    source: "local",
   },
   {
     text: "⚠️ Your Flight 6E321 is delayed by 1 hour.",
-    user: "SAARTHI",
+    nickname: "SAARTHI",
+    user: "bot@gmail.com",
     id: 1738914867456,
     timestamp: 1738914867456,
-    profileImg: "../assets/profileImages/bot.jpg", // SAARTHI image
+    synced: false,
+    source: "local",
   },
   {
-    text: "Looks Like we got lot of time😂",
-    user: "Gen. Parikshit",
     id: 1738914867457,
+    text: "Looks Like we got lot of time😂",
+    user: "parikshit@gmail.com", // Firebase UID
+    nickname: "Gen. Parikshit",
     timestamp: 1738914867457,
-    profileImg: "../assets/profileImages/user.jpg",
+    synced: false,
+    source: "local",
   },
   {
     text: "This is your crew. Have a Safe journey and if need any help call us.",
-    user: "CREW",
+    nickname: "CREW",
+    user: "crew@gmail.com",
     id: 1738914867458,
     timestamp: 1738914867458,
-    profileImg: "../assets/profileImages/crew.jpg",
+    synced: false,
+    source: "local",
   },
 ];
 // Function to get the local IP address
@@ -66,11 +75,13 @@ wss.on("connection", (ws) => {
   // Notify the new client
   const timestamp = Date.now();
   const welcomeMessage = {
-    text: "Welcome to the SkyLink",
-    user: "SAARTHI",
+    text: "Welcome to the SkyLink ChatRoom",
+    nickname: "SAARTHI",
+    user: "bot@gmail.com",
     id: timestamp,
     timestamp: timestamp,
-    profileImg: "../assets/profileImages/bot.jpg",
+    synced: true,
+    source: "local",
   };
 
   if (messages.length) {
